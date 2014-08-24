@@ -10,6 +10,8 @@ public class ContrllLines : MonoBehaviour {
 	public int pointCount = 0;
 	public GameObject player1, player2;
 	public GameObject score1, score2;
+	public float scaleFaces;
+	public GameObject voice1, voice2;
 	
 	private bool firstPointSeted = false;
 	private bool b1WasRed = false;
@@ -59,8 +61,8 @@ public class ContrllLines : MonoBehaviour {
 		if(firstPointSeted == false){
 			b1 = obj1;
 			startPoint = v3;
-			if(obj1.GetComponent<SpriteRenderer>().color == Color.red) 
-				b1WasRed = true;
+			if(obj1.GetComponent<SpriteRenderer>().color == Color.red)  b1WasRed = true;
+			else b1WasRed = false;
 			obj1.GetComponent<SpriteRenderer>().color = Color.green;
 			firstPointSeted = true;
 		}else{
@@ -172,16 +174,19 @@ public class ContrllLines : MonoBehaviour {
 		if(TimePlayer1){
 			GameObject p = (Instantiate(player1) as GameObject);
 			p.transform.position = position;
+			p.transform.localScale = new Vector3(scaleFaces,scaleFaces, scaleFaces);
 			scoreP1 += 1;
 			TextMesh str = score1.GetComponent<TextMesh>();
 			str.text = scoreP1.ToString();
-			
+			Destroy(Instantiate(voice1), 3f);
 		}else{
 			GameObject p = (Instantiate(player2) as GameObject);
 			p.transform.position = position;
+			p.transform.localScale = new Vector3(scaleFaces,scaleFaces,scaleFaces);
 			scoreP2 += 1;
 			TextMesh str = score2.GetComponent<TextMesh>(); 
  		 	str.text = scoreP2.ToString();
+			Destroy(Instantiate(voice2), 3f );
 		}
 	}
 	
